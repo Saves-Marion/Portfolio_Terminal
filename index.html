@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Portfolio</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="C:/Users/saves/Desktop/Dev/Portfolio_Ligne/styles/style.css">
+</head>
+
+<body>
+    <h1 id="portfolio">My Portfolio</h1>
+    <div id="console">
+        <p id="init">
+            <strong id="terminal">$</strong> cd Saves/About_Me
+            <br/>
+            <strong id="terminal">$</strong> cat saves_marion.txt
+        </p>
+        <br/>
+        <p id="presentation">
+            Hi ! I'm Marion Saves.
+            <br/><br/>
+            I'm a final year <strong>Telecom SudParis Major</strong> in <strong>Distributed Computing Services Architecture</strong> with multiple experiences in IT development.
+            <br/>
+            This year I've followed courses about <strong>Cloud</strong> (Docker, Kubernetes, Google Cloud Platform), <strong>Big Data</strong> (Scala, Spark), <strong>Java Development</strong> and <strong>Supercomputers</strong> (C, MPI, CUDA).
+            <br/><br/>
+            I love to travel, to cook and to draw.
+            <br/><br/>
+            Another thing about me, I'm always developping or learning about something new. 
+        </p>
+        <br/>
+        <p id="contact">
+            My projects are on my GitHub, <a href="https://github.com/Saves-Marion" target="_blank">here</a>.          
+            <br/><br/>
+            You can <strong>contact</strong> me here:
+            <br/>
+            <a href="https://www.linkedin.com/in/marion-saves/" target="_blank">LinkedIn</a>
+            <br/>
+            <em onclick="mail();">marion.saves@telecom-sudparis.eu</em>
+        </p>
+        <br/>
+        <p id="finalisation">
+            <strong id="terminal">$</strong> exit
+        </p>
+    </div> 
+
+    <script>
+        //Général
+        const console = document.getElementById('console');
+        const titre = document.getElementById('portfolio');
+        //Sections
+        const initialisation = document.getElementById('init');
+        const presentation = document.getElementById('presentation');
+        const contact = document.getElementById('contact');
+        const finalisation = document.getElementById('finalisation');
+        //Récupération des valeurs et remise à 0
+        const init=initialisation.innerHTML;
+        const pres=presentation.innerHTML;
+        const cont=contact.innerHTML;
+        const fina=finalisation.innerHTML;
+
+        initialisation.innerHTML="";
+        presentation.innerHTML="";
+        contact.innerHTML="";
+        finalisation.innerHTML="";
+        //Variables utiles
+        var count=0;
+        var sec=0;
+        var section;
+        var texte;
+        var text="";
+        sectionAndTexte();
+
+        //Machine à écrire
+        function changeMessage(){
+            if(texte[count]=="$"){
+                text=text+"saves_marion@portfolio:~$";
+            }
+            else{
+                text=text+texte[count];        
+            }
+            section.innerHTML = text;
+            count=count+1;
+            if(count >= texte.length){
+                if(sec >= 3){
+                    clearTimeout(a);
+                }
+                else{
+                    count = 0;
+                    sec=sec+1;
+                    text=""; 
+                    sectionAndTexte();           
+                }
+            }
+        }
+
+       var a = setInterval(changeMessage,35);
+
+       function sectionAndTexte(){
+            switch(sec){
+                case 0:
+                    section=initialisation;
+                    texte = init;
+                    break;
+                case 1:
+                    section=presentation;
+                    texte = pres;
+                    break;
+                case 2:
+                    section=contact;
+                    texte = cont;
+                    break;
+                case 3:
+                    section=finalisation;
+                    texte = fina;
+                    break;
+            }
+        }
+
+        function mail(){
+            window.open('mailto:marion.saves@telecom-sudparis.eu');
+        }
+        /*
+        var Typer = {
+            text: '',
+            accessCountimer: null,
+            index: 0,
+            speed: 2,
+            file: '',
+            accessCount: 0,
+            deniedCount: 0,
+            init: function () {
+                accessCountimer = setInterval(function () {
+                    Typer.updLstChr();
+                }, 500);
+                $.get(Typer.file, function (data) {
+                    Typer.text = data;
+                    Typer.text = Typer.text.slice(0, Typer.text.length - 1);
+                });
+            },
+
+            content: function () {
+                return $('#console').html();
+            },
+
+            write: function (str) {
+                $('#console').append(str);
+                return false;
+            },
+
+            addText: function (key) {
+                if (key.keyCode == 18) {
+                Typer.accessCount++;
+
+                if (Typer.accessCount >= 3) {
+                    Typer.makeAccess();
+                }
+                } else if (key.keyCode == 20) {
+                Typer.deniedCount++;
+
+                if (Typer.deniedCount >= 3) {
+                    Typer.makeDenied();
+                }
+                } else if (key.keyCode == 27) {
+                Typer.hidepop();
+                } else if (Typer.text) {
+                var cont = Typer.content();
+                if (cont.substring(cont.length - 1, cont.length) == '|')
+                    $('#console').html(
+                    $('#console')
+                        .html()
+                        .substring(0, cont.length - 1),
+                    );
+                if (key.keyCode != 8) {
+                    Typer.index += Typer.speed;
+                } else {
+                    if (Typer.index > 0) Typer.index -= Typer.speed;
+                }
+                var text = Typer.text.substring(0, Typer.index);
+                var rtn = new RegExp('\n', 'g');
+
+                $('#console').html(text.replace(rtn, '<br/>'));
+                window.scrollBy(0, 50);
+                }
+
+                if (key.preventDefault && key.keyCode != 122) {
+                key.preventDefault();
+                }
+
+                if (key.keyCode != 122) {
+                // otherway prevent keys default behavior
+                key.returnValue = false;
+                }
+            },
+
+            updLstChr: function () {
+                var cont = this.content();
+
+                if (cont.substring(cont.length - 1, cont.length) == '|')
+                $('#console').html(
+                    $('#console')
+                    .html()
+                    .substring(0, cont.length - 1),
+                );
+                else this.write('|'); // else write it
+            },
+        };
+
+        function replaceUrls(text) {
+            var http = text.indexOf('http://');
+            var space = text.indexOf('.me ', http);
+
+            if (space != -1) {
+                var url = text.slice(http, space - 1);
+                return text.replace(url, '<a href="' + url + '">' + url + '</a>');
+            } else {
+                return text;
+            }
+        }
+
+        Typer.speed = 3;
+        Typer.file = 'CodeNerve.txt';
+        Typer.init();
+
+        var timer = setInterval('t();', 30);
+        function t() {
+            Typer.addText({ keyCode: 123748 });
+
+            if (Typer.index > Typer.text.length) {
+                clearInterval(timer);
+            }
+        }*/
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,21 @@
+body {
+	background-color: black;
+    color: white;
+    font-family: courier, monospace;
+    width: 90%;
+    height: auto;
+    margin: 5%;
+}
+
+a, em {
+    color: yellowgreen;
+    text-decoration: none;
+}
+
+strong {
+    color:palevioletred;
+}
+
+#terminal {
+    color:violet;
+}
